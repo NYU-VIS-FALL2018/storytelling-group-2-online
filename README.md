@@ -1,15 +1,10 @@
-# Project Name
-**Authors**: Jhon Doe (jd2545), Mark Smith (ms4568)
+# Firewatch
+**Authors**: Vikram Sunil Bajaj (vsb259), Ameya Shanbhag (avs431), Hitarthi Shah (hus206)
 
-Group X (Online: Group Y) 
-
-![Screenhot](screenshot.jpg)
-
+Group 2 (Online: Group 2)
 
 ## About
-In this project we ...
+In this project, we analyze wildfires in the US, their causes and effects.
 
 ## More
-[DEMO](https://nyu-vis-fall2018.github.io/project-template/)
-
 [Project Descrioption](project.pdf)
