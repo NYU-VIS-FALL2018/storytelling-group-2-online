@@ -11,7 +11,9 @@ In this project, we analyze wildfires in the US, their causes and effects.
 <b>index_2.html</b> has bar chart visualizations.
 
 ## Link to Access the Data
-Since the data was greater than 25MB, we could not upload it here. The data can be obtained at: https://drive.google.com/open?id=179gwX_h91TAV8V6R1itAi7AMSJdMgqzn
+Since the data was greater than 25MB, we could not upload it here. The iwldfire data can be obtained at: https://drive.google.com/open?id=179gwX_h91TAV8V6R1itAi7AMSJdMgqzn
+
+U.S. Pollution Data: https://www.kaggle.com/sogun3/uspollution
 
 ## Link to state.geo.json
 https://drive.google.com/open?id=1VSoy7HNuvtHWshqjmj4WbxR2b6knzjEd
