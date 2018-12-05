@@ -7,4 +7,4 @@ Group 2 (Online: Group 2)
 In this project, we analyze wildfires in the US, their causes and effects.
 
 ## More
-[Project Descrioption](project.pdf)
+[Project Report](project.pdf)
