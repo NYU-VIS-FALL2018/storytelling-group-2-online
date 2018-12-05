@@ -7,7 +7,7 @@ Group 2 (Online: Group 2)
 In this project, we analyze wildfires in the US, their causes and effects.
 
 ## Link to Access the Data
-Since the data was greater than 25MB, we coul not upload it here. The data can be obtained at: https://drive.google.com/open?id=179gwX_h91TAV8V6R1itAi7AMSJdMgqzn
+Since the data was greater than 25MB, we could not upload it here. The data can be obtained at: https://drive.google.com/open?id=179gwX_h91TAV8V6R1itAi7AMSJdMgqzn
 
 ## More
 [Project Report](project.pdf)
