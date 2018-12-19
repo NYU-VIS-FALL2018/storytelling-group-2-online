@@ -9,7 +9,11 @@ With the recent events of forest wildfires happening across the globe, we decide
 <b>index.html</b> is the main file containing the visualizations.
 
 ## Link to Access the Data
-Since the data was greater than 25MB, we could not upload it here. The wildfire data can be obtained at: https://drive.google.com/open?id=1eKVGdzMgIRIo8zkNZYcoS_1n4o-8xwf7
+Since the data was greater than 25MB, we could not upload it here. The <b>wildfire.csv</b> data can be obtained at: https://drive.google.com/open?id=1eKVGdzMgIRIo8zkNZYcoS_1n4o-8xwf7
+
+<b>wildfire_1.csv</b>: https://drive.google.com/open?id=19w0nyQUt12ZfnGhR-OYz7eL1wjJUO9Ik
+
+<b>wildfire_2.csv</b>: https://drive.google.com/open?id=1nNaOY4f2uE90gTeXmBxt6rmIx8JD80Y6
 
 ## Screenshots
 Number of wildfires per state from 1992-2015 (interactive):
@@ -39,4 +43,4 @@ Number of wildfires per fire cause over time (interactive):
 ## Demo
 Since our dataset was too large to upload on GitHub, we were not able to publish the demo via GitHub.
 
-To see the demo, please download the code as is, and the wildfire data from the link provided above, and load index.html (may take a minute or two to load the maps). Thank you!
+To see the demo, please download the code as is, the wildfire data from the links provided above, place wildfire.csv in the root directory and wildfire_1.csv, wildfire_2.csv in the IV_Project directory, and load index.html (may take a minute or two to load the maps). Thank you!
