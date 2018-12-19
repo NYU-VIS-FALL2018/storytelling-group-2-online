@@ -35,3 +35,8 @@ Number of wildfires per fire cause over time (interactive):
 
 ## Proposal/Report
 [Project Report](project.pdf)
+
+## Demo
+Since our dataset was too large to upload on GitHub, we were not able to publish the demo via GitHub.
+
+To see the demo, please download the code as is, and the wildfire data from the link provided above, and load index.html (may take a minute or two to load the maps). Thank you!
