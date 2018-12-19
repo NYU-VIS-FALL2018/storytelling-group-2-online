@@ -45,6 +45,7 @@
             height: 100%;
             overflow: hidden;
         }
+
     </style>
 </head>
 
@@ -62,27 +63,23 @@
         <div id="usa-mapping"></div>
         <div class="embed">
             <div class="container">
-                <iframe src="./IV_Project/index_5.html" id="frame3" frameborder=0
-                    allowfullscreen style="position: absolute;"></iframe>
+                <iframe src="./IV_Project/index_5.html" id="frame3" frameborder=0 allowfullscreen style="position: absolute;"></iframe>
             </div>
         </div>
         <div class="embed">
             <div class="container">
-                <iframe src="./IV_Project/index_6.html" id="frame4" frameborder=0
-                    allowfullscreen style="position: absolute;"></iframe>
+                <iframe src="./IV_Project/index_6.html" id="frame4" frameborder=0 allowfullscreen style="position: absolute;"></iframe>
             </div>
         </div>
         <div class="embed">
             <div class="container">
-                <iframe src="./index_3.html" id="frame1" frameborder=0
-                    allowfullscreen style="position: absolute;" height="1000px"></iframe>
+                <iframe src="./index_3.html" id="frame1" frameborder=0 allowfullscreen style="position: absolute;" height="1000px"></iframe>
             </div>
         </div>
         <div class="embed">
             <div class="container">
                 <center>
-                <iframe src="./index_4.html" id="frame2" frameborder=0
-                    allowfullscreen style="position: absolute;"></iframe></center>
+                    <iframe src="./index_4.html" id="frame2" frameborder=0 allowfullscreen style="position: absolute;"></iframe></center>
             </div>
         </div>
     </div>
@@ -112,7 +109,7 @@
             .projection(projection); // tell path generator to use albersUsa projection
 
         var t = d3.select("#usa-mapping").append("text")
-        t.html("<p style='padding:10px; text-align: justify;'>Wildfires are becoming increasingly common nowadays. With a large part of California set ablaze, we couldn’t help but think: could this be a cause for global warming? What could have been the reason behind the wildfires? With these questions in mind, we turned to data for the answers. What we found was quite surprising!<br> First, we obtained data that contained details about wildfires in the US, from 1992-2015.<br> Initially, we wanted to determine which states in the US are most prone to wildfires. California: no surprise there! Georgia is a close second.</p>")
+        t.html("<p style='padding:10px; text-align: center;'>Wildfires are becoming increasingly common nowadays. With a large part of California set ablaze, we couldn’t help but think: could this be a cause for global warming? What could have been the reason behind the wildfires? With these questions in mind, we turned to data for the answers. What we found was quite surprising!<br> First, we obtained data that contained details about wildfires in the US, from 1992-2015.<br> Initially, we wanted to determine which states in the US are most prone to wildfires. California: no surprise there! Georgia is a close second.</p>")
 
         //Create SVG element and append map to the SVG
         var svg = d3.select("#usa-mapping")
@@ -175,10 +172,10 @@
             .append("path")
             .attr("d", path)
             .style("stroke-width", "1")
-            .style("fill", function (d) {
+            .style("fill", function(d) {
                 return ramp(d.properties.fire_count)
             })
-            .on("mouseover", function (d) {
+            .on("mouseover", function(d) {
                 div.transition()
                     .duration(200)
                     .style('opacity', 0.9);
@@ -186,7 +183,7 @@
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 30) + "px");
             })
-            .on("mouseout", function (d) {
+            .on("mouseout", function(d) {
                 div.transition()
                     .duration(500)
                     .style('opacity', 0)
@@ -213,13 +210,13 @@
             .data(fakeData)
             .enter()
             .append("rect")
-            .attr("x", function (d) {
+            .attr("x", function(d) {
                 return d;
             })
             .attr("y", 10)
             .attr("height", 10)
             .attr("width", rectWidth)
-            .attr("fill", function (d, i) {
+            .attr("fill", function(d, i) {
                 return colorScaleLegend(i)
             });
 
@@ -310,14 +307,14 @@
             .append("path")
             .attr("d", path)
             .style("stroke-width", "1")
-            .style("fill", function (d) {
+            .style("fill", function(d) {
                 if (d.properties.fire_count == 'N/A') {
                     return 'rgb(211, 211, 211)'
                 } else {
                     return ramp(d.properties.fire_count)
                 }
             })
-            .on("mouseover", function (d) {
+            .on("mouseover", function(d) {
                 div.transition()
                     .duration(200)
                     .style('opacity', 0.9);
@@ -325,7 +322,7 @@
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 30) + "px");
             })
-            .on("mouseout", function (d) {
+            .on("mouseout", function(d) {
                 div.transition()
                     .duration(500)
                     .style('opacity', 0)
@@ -352,13 +349,13 @@
             .data(fakeData)
             .enter()
             .append("rect")
-            .attr("x", function (d) {
+            .attr("x", function(d) {
                 return d;
             })
             .attr("y", 10)
             .attr("height", 10)
             .attr("width", rectWidth)
-            .attr("fill", function (d, i) {
+            .attr("fill", function(d, i) {
                 return colorScaleLegend(i)
             });
 
@@ -539,10 +536,10 @@
             .append("path")
             .attr("d", path_new)
             .style("stroke-width", "1")
-            .style("fill", function (d) {
+            .style("fill", function(d) {
                 return new_ramp(d.properties.norm_avg_days)
             })
-            .on("mouseover", function (d) {
+            .on("mouseover", function(d) {
                 div_new.transition()
                     .duration(200)
                     .style('opacity', 0.9);
@@ -550,7 +547,7 @@
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 30) + "px");
             })
-            .on("mouseout", function (d) {
+            .on("mouseout", function(d) {
                 div.transition()
                     .duration(500)
                     .style('opacity', 0)
@@ -577,13 +574,13 @@
             .data(fakeData_new)
             .enter()
             .append("rect")
-            .attr("x", function (d) {
+            .attr("x", function(d) {
                 return d;
             })
             .attr("y", 10)
             .attr("height", 10)
             .attr("width", rectWidth)
-            .attr("fill", function (d, i) {
+            .attr("fill", function(d, i) {
                 return colorScaleLegend(i)
             });
 
