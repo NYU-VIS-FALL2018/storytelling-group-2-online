@@ -1,245 +1,252 @@
 <html>
 
 <head>
-  <script src="http://d3js.org/d3.v4.min.js"></script>
+    <meta charset="utf-8">
+    <script src="http://d3js.org/d3.v4.min.js"></script>
 
-  <style>
-    svg {
-      font-family: Sans-Serif, Arial;
-    }
+    <style>
+        svg {
+            font-family: Sans-Serif, Arial;
+        }
 
-    .line {
-      stroke-width: 2;
-      fill: none;
-    }
+        .line {
+            stroke-width: 2;
+            fill: none;
+        }
 
-    .axis path {
-      stroke: black;
-    }
+        .axis path {
+            stroke: black;
+        }
 
-    .text {
-      font-size: 12px;
-    }
+        .text {
+            font-size: 12px;
+        }
 
-    .title-text {
-      font-size: 12px;
-    }
-  </style>
+        .title-text {
+            font-size: 12px;
+        }
+
+    </style>
 </head>
 
 <body>
     <center>
-    <p>To get a better view of the causes and the number of wildfires caused by them, we thought of visualising all the reasons in a parallel way over the time.</p> </center>
-  <div id="chart" style="margin-top:20px;"></div>
-    
-  <script>
-    var accumulatedData = [];
+        <p>To get a better view of the causes and the number of wildfires caused by them, we thought of visualising all the reasons in a parallel way over the time.</p>
+    </center>
+    <div id="chart" style="margin-top:20px;"></div>
 
-    // load the data
-    d3.csv("LC3.csv", function (error, data) {
-      if (error) throw error;
+    <script>
+        var accumulatedData = [];
 
-      // initialize helper variables.
-      var previousReason = ""; // maintain the ongoing fire reason
-      var yearFires = []; // stores the year and fire count in json objects in form of key-value pairs.
+        // load the data
+        d3.csv("LC3.csv", function(error, data) {
+            if (error) throw error;
 
-      // format the data
-      data.forEach(function (d) {
-        if (previousReason === "" || (d.Reason !== "" && previousReason !== d.Reason)) {
+            // initialize helper variables.
+            var previousReason = ""; // maintain the ongoing fire reason
+            var yearFires = []; // stores the year and fire count in json objects in form of key-value pairs.
 
-          if (yearFires.length !== 0 && previousReason !== "") {
-            accumulatedData.push({ reason: previousReason, values: yearFires })
-            yearFires = [];
-          }
+            // format the data
+            data.forEach(function(d) {
+                if (previousReason === "" || (d.Reason !== "" && previousReason !== d.Reason)) {
 
-          previousReason = d.Reason;
-        }
+                    if (yearFires.length !== 0 && previousReason !== "") {
+                        accumulatedData.push({
+                            reason: previousReason,
+                            values: yearFires
+                        })
+                        yearFires = [];
+                    }
 
-        yearFires.push(
-          {
-            date: d.Year,
-            count: d.Count
-          }
-        )
-      });
+                    previousReason = d.Reason;
+                }
 
-      // push the last reason data as it won't be covered by the loop.
-      accumulatedData.push({ reason: previousReason, values: yearFires })
+                yearFires.push({
+                    date: d.Year,
+                    count: d.Count
+                })
+            });
 
-      console.log(accumulatedData);
+            // push the last reason data as it won't be covered by the loop.
+            accumulatedData.push({
+                reason: previousReason,
+                values: yearFires
+            })
 
-
-      var width = 800;
-      var height = 400;
-      var margin = 50;
-      var duration = 250;
-
-      var lineOpacity = "0.25";
-      var lineOpacityHover = "0.85";
-      var otherLinesOpacityHover = "0.1";
-      var lineStroke = "1.5px";
-      var lineStrokeHover = "2.5px";
-
-      var circleOpacity = '0.85';
-      var circleOpacityOnLineHover = "0.25"
-      var circleRadius = 3;
-      var circleRadiusHover = 6;
+            console.log(accumulatedData);
 
 
-      /* Format Data */
-      var parseDate = d3.timeParse("%Y");
-      accumulatedData.forEach(function (d) {
-        d.values.forEach(function (d) {
-          d.date = parseDate(d.date);
-          d.count = +d.count;
+            var width = 800;
+            var height = 400;
+            var margin = 50;
+            var duration = 250;
+
+            var lineOpacity = "0.25";
+            var lineOpacityHover = "0.85";
+            var otherLinesOpacityHover = "0.1";
+            var lineStroke = "1.5px";
+            var lineStrokeHover = "2.5px";
+
+            var circleOpacity = '0.85';
+            var circleOpacityOnLineHover = "0.25"
+            var circleRadius = 3;
+            var circleRadiusHover = 6;
+
+
+            /* Format Data */
+            var parseDate = d3.timeParse("%Y");
+            accumulatedData.forEach(function(d) {
+                d.values.forEach(function(d) {
+                    d.date = parseDate(d.date);
+                    d.count = +d.count;
+                });
+            });
+
+
+            // find the range of the y axis from all the counts.
+            yMaxRangeValue = 0;
+            accumulatedData.forEach(reasonValues => {
+                reasonValues.values.forEach(x => {
+                    if (x.count > yMaxRangeValue) {
+                        yMaxRangeValue = x.count;
+                    }
+                });
+            });
+
+            /* Scale */
+            var xScale = d3.scaleTime()
+                .domain(d3.extent(accumulatedData[0].values, d => d.date))
+                .range([0, width - margin]);
+
+            var yScale = d3.scaleLinear()
+                .domain([0, yMaxRangeValue])
+                .range([height - margin, 0]);
+
+            var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+            /* Add SVG */
+            var svg = d3.select("#chart").append("svg")
+                .attr("width", (width + margin) + "px")
+                .attr("height", (height + margin) + "px")
+                .append('g')
+                .attr("transform", `translate(${margin}, ${margin})`);
+
+
+            /* Add line into SVG */
+            var line = d3.line()
+                .x(d => xScale(d.date))
+                .y(d => yScale(d.count));
+
+            let lines = svg.append('g')
+                .attr('class', 'lines');
+
+            lines.selectAll('.line-group')
+                .data(accumulatedData).enter()
+                .append('g')
+                .attr('class', 'line-group')
+                .on("mouseover", function(d, i) {
+                    svg.append("text")
+                        .attr("class", "title-text")
+                        .style("fill", color(i))
+                        .text(d.reason)
+                        .attr("text-anchor", "middle")
+                        .attr("x", (width - margin) / 2)
+                        .attr("y", 5);
+                })
+                .on("mouseout", function(d) {
+                    svg.select(".title-text").remove();
+                })
+                .append('path')
+                .attr('class', 'line')
+                .attr('d', d => line(d.values))
+                .style('stroke', (d, i) => color(i))
+                .style('opacity', lineOpacity)
+                .on("mouseover", function(d) {
+                    d3.selectAll('.line')
+                        .style('opacity', otherLinesOpacityHover);
+                    d3.selectAll('.circle')
+                        .style('opacity', circleOpacityOnLineHover);
+                    d3.select(this)
+                        .style('opacity', lineOpacityHover)
+                        .style("stroke-width", lineStrokeHover)
+                        .style("cursor", "pointer");
+                })
+                .on("mouseout", function(d) {
+                    d3.selectAll(".line")
+                        .style('opacity', lineOpacity);
+                    d3.selectAll('.circle')
+                        .style('opacity', circleOpacity);
+                    d3.select(this)
+                        .style("stroke-width", lineStroke)
+                        .style("cursor", "none");
+                });
+
+
+            /* Add circles in the line */
+            lines.selectAll("circle-group")
+                .data(accumulatedData).enter()
+                .append("g")
+                .style("fill", (d, i) => color(i))
+                .selectAll("circle")
+                .data(d => d.values).enter()
+                .append("g")
+                .attr("class", "circle")
+                .on("mouseover", function(d) {
+                    d3.select(this)
+                        .style("cursor", "pointer")
+                        .append("text")
+                        .attr("class", "text")
+                        .text(`${d.count}`)
+                        .attr("x", d => xScale(d.date) + 5)
+                        .attr("y", d => yScale(d.count) - 10);
+                })
+                .on("mouseout", function(d) {
+                    d3.select(this)
+                        .style("cursor", "none")
+                        .transition()
+                        .duration(duration)
+                        .selectAll(".text").remove();
+                })
+                .append("circle")
+                .attr("cx", d => xScale(d.date))
+                .attr("cy", d => yScale(d.count))
+                .attr("r", circleRadius)
+                .style('opacity', circleOpacity)
+                .on("mouseover", function(d) {
+                    d3.select(this)
+                        .transition()
+                        .duration(duration)
+                        .attr("r", circleRadiusHover);
+                })
+                .on("mouseout", function(d) {
+                    d3.select(this)
+                        .transition()
+                        .duration(duration)
+                        .attr("r", circleRadius);
+                });
+
+
+            /* Add Axis into SVG */
+            var xAxis = d3.axisBottom(xScale).ticks(25);
+            var yAxis = d3.axisLeft(yScale).ticks(5);
+
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", `translate(0, ${height - margin})`)
+                .call(xAxis);
+
+            svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append('text')
+                .attr("y", 15)
+                .attr("transform", "rotate(-90)")
+                .attr("fill", "#000")
+                .text("Number of Fires");
+
         });
-      });
 
-
-      // find the range of the y axis from all the counts.
-      yMaxRangeValue = 0;
-      accumulatedData.forEach(reasonValues => {
-        reasonValues.values.forEach(x => {
-          if (x.count > yMaxRangeValue) {
-            yMaxRangeValue = x.count;
-          }
-        });
-      });
-
-      /* Scale */
-      var xScale = d3.scaleTime()
-        .domain(d3.extent(accumulatedData[0].values, d => d.date))
-        .range([0, width - margin]);
-
-      var yScale = d3.scaleLinear()
-        .domain([0, yMaxRangeValue])
-        .range([height - margin, 0]);
-
-      var color = d3.scaleOrdinal(d3.schemeCategory10);
-
-      /* Add SVG */
-      var svg = d3.select("#chart").append("svg")
-        .attr("width", (width + margin) + "px")
-        .attr("height", (height + margin) + "px")
-        .append('g')
-        .attr("transform", `translate(${margin}, ${margin})`);
-
-
-      /* Add line into SVG */
-      var line = d3.line()
-        .x(d => xScale(d.date))
-        .y(d => yScale(d.count));
-
-      let lines = svg.append('g')
-        .attr('class', 'lines');
-
-      lines.selectAll('.line-group')
-        .data(accumulatedData).enter()
-        .append('g')
-        .attr('class', 'line-group')
-        .on("mouseover", function (d, i) {
-          svg.append("text")
-            .attr("class", "title-text")
-            .style("fill", color(i))
-            .text(d.reason)
-            .attr("text-anchor", "middle")
-            .attr("x", (width - margin) / 2)
-            .attr("y", 5);
-        })
-        .on("mouseout", function (d) {
-          svg.select(".title-text").remove();
-        })
-        .append('path')
-        .attr('class', 'line')
-        .attr('d', d => line(d.values))
-        .style('stroke', (d, i) => color(i))
-        .style('opacity', lineOpacity)
-        .on("mouseover", function (d) {
-          d3.selectAll('.line')
-            .style('opacity', otherLinesOpacityHover);
-          d3.selectAll('.circle')
-            .style('opacity', circleOpacityOnLineHover);
-          d3.select(this)
-            .style('opacity', lineOpacityHover)
-            .style("stroke-width", lineStrokeHover)
-            .style("cursor", "pointer");
-        })
-        .on("mouseout", function (d) {
-          d3.selectAll(".line")
-            .style('opacity', lineOpacity);
-          d3.selectAll('.circle')
-            .style('opacity', circleOpacity);
-          d3.select(this)
-            .style("stroke-width", lineStroke)
-            .style("cursor", "none");
-        });
-
-
-      /* Add circles in the line */
-      lines.selectAll("circle-group")
-        .data(accumulatedData).enter()
-        .append("g")
-        .style("fill", (d, i) => color(i))
-        .selectAll("circle")
-        .data(d => d.values).enter()
-        .append("g")
-        .attr("class", "circle")
-        .on("mouseover", function (d) {
-          d3.select(this)
-            .style("cursor", "pointer")
-            .append("text")
-            .attr("class", "text")
-            .text(`${d.count}`)
-            .attr("x", d => xScale(d.date) + 5)
-            .attr("y", d => yScale(d.count) - 10);
-        })
-        .on("mouseout", function (d) {
-          d3.select(this)
-            .style("cursor", "none")
-            .transition()
-            .duration(duration)
-            .selectAll(".text").remove();
-        })
-        .append("circle")
-        .attr("cx", d => xScale(d.date))
-        .attr("cy", d => yScale(d.count))
-        .attr("r", circleRadius)
-        .style('opacity', circleOpacity)
-        .on("mouseover", function (d) {
-          d3.select(this)
-            .transition()
-            .duration(duration)
-            .attr("r", circleRadiusHover);
-        })
-        .on("mouseout", function (d) {
-          d3.select(this)
-            .transition()
-            .duration(duration)
-            .attr("r", circleRadius);
-        });
-
-
-      /* Add Axis into SVG */
-      var xAxis = d3.axisBottom(xScale).ticks(25);
-      var yAxis = d3.axisLeft(yScale).ticks(5);
-
-      svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", `translate(0, ${height - margin})`)
-        .call(xAxis);
-
-      svg.append("g")
-        .attr("class", "y axis")
-        .call(yAxis)
-        .append('text')
-        .attr("y", 15)
-        .attr("transform", "rotate(-90)")
-        .attr("fill", "#000")
-        .text("Number of Fires");
-
-    });
-
-  </script>
+    </script>
 </body>
 
 </html>
