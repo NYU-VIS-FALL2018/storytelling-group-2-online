@@ -43,4 +43,8 @@ Number of wildfires per fire cause over time (interactive):
 ## Demo
 Since our dataset was too large to upload on GitHub, we were not able to publish the demo via GitHub.
 
-To see the demo, please download the code as is, the wildfire data from the links provided above, place wildfire.csv in the root directory and wildfire_1.csv, wildfire_2.csv in the IV_Project directory, and load index.html (may take a minute or two to load the maps). Thank you!
+To see the demo, please download the code as is, the wildfire data from the links provided above, place wildfire.csv in the root directory and wildfire_1.csv, wildfire_2.csv in the IV_Project directory, and load index.html (may take a minute or two to load the maps).
+
+For your convenience, we have also uploaded the demo on YouTube: https://youtu.be/WpSi7RYxRRc
+
+Thank You!
