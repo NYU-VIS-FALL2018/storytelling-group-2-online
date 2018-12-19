@@ -4,7 +4,7 @@
 Group 2 (Online: Group 2)
 
 ## About
-In this project, we analyze wildfires in the US, their causes and effects.
+With the recent events of forest wildfires happening across the globe, we decided to dive into data to develop some insights. The goal of the project is to analyze the wildfires in the United States over time and to try to understand the factors causing them, and ultimately increase awareness about climate change.
 
 <b>index.html</b> is the main file containing the visualizations.
 
