@@ -11,8 +11,8 @@ In this project, we analyze wildfires in the US, their causes and effects.
 ## Link to Access the Data
 Since the data was greater than 25MB, we could not upload it here. The wildfire data can be obtained at: https://drive.google.com/open?id=1eKVGdzMgIRIo8zkNZYcoS_1n4o-8xwf7
 
-## Link to state.geo.json
-https://drive.google.com/open?id=1VSoy7HNuvtHWshqjmj4WbxR2b6knzjEd
+## Screenshots
 
-## More
+
+## Proposal/Report
 [Project Report](project.pdf)
